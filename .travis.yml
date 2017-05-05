@@ -11,8 +11,8 @@ deploy:
   api_key:
     secure: JBEU6DJ+c+7bnffP/yJXhchv+2I4RK3lSkqLDzeTzDfpveA7DBSt3jS+rK+8ZY3kW8loAmgZKyQ/NA4xBQSeJhx56xMDCeCIkyAvCGqbn/FERvJfQpqOGpbUDxlt7SsOjUCI34rfnSysbBGTCfzizOPKeMCMr/heWfXPXV9V3kKkJ6apHBM+5+KNqFs7BxcMp728jra0hUyBcunPLa/7lcjHAjNExf4AfTkhdf6fKTLfssQfihUcW+YP7J7TSZYZrYaEpI9cDCOdhK12XA323ierREhBfgYmWpei4uxSluiS5cZtoXsgtaxW7+DSCgNicavyE2u+MCN3PYleE97Z8JSqV7zPrKXAp7ZWQf/DDhrMPJBYUp1h2nymn2xvTyOzSZ8nrMXlvJDNtNS15b9gsYUX5/Trc2yTMJYow0LLerNcQB6Je+zFGRIV6/HivFcdzuY27lL28rX5HFpUWT2Ro3NiTzDlIMpehgVjZ9i/t/jjqJTLxul5baOHJre3ijSFtqgFn/+9GDNW8nEWHGNOb5A9Jf3GkPiPLmukYAVuydl9cj6XHh7ZTofymya7lOxcGCdFl7iRNJg5/Gum9ZUiL+wmzFuvfveZ2TjNGCxWTBNi9Gwt3D+ySkpGGIzczw21GDJmqe/ppXOxSnZWDjjrIQ2WtwwqAoogKuTQl8MHhyw=
   file:
-  - crawlertest-0.1.jar
-  - crawlertest-0.1-javadoc.jar
-  - crawlertest-0.1-sources.jar
+  - target/crawlertest-0.1.jar
+  - target/crawlertest-0.1-javadoc.jar
+  - target/crawlertest-0.1-sources.jar
   on:
     tags: true
