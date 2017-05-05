@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Marfeeltest client app</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+    </head>
+    <body>
+        <div>Insert a list of URLs in the following fields (one per each, none mandatory) and press Crawl.<br/>
+            Notififcation messages from the service will appear below "Messages:".<br/>
+            The "test" link can be safely ignored.
+        </div>
+        <input type="text" class="url"/><br/>
+        <input type="text" class="url"/><br/>
+        <input type="text" class="url"/><br/>
+        <input type="text" class="url"/><br/>
+        <input type="text" class="url"/><br/>
+        <button type="button" id="start">Crawl</button>
+        <br/><br/>
+        <a href="test.html">test</a>
+        <br/><br/>
+        Messages:
+        <button type="button" id="clear">Clear messages</button><br/>
+        <ol id="result"></ol>
+        <script>
+            $(function () {
+                $('#clear').click(function(e) {
+                    e.preventDefault();
+                    $('#result').empty();
+                });
+                $('#start').click(function (e) {
+                    var request = [];
+                    e.preventDefault();
+
+                    $('input.url').each(function (i, elem) {
+                        var val = $(elem).val();
+                        if (val && val.trim().length) {
+                            request.push({url: val.trim()});
+                        }
+                    });
+                    
+                    $.ajax({
+                        url: 'crawler/'
+                        , method: 'POST'
+                        , contentType: 'application/json'
+                        , dataType: 'json'
+                        , data: JSON.stringify(request)
+                    }).done(function (requestId) {
+                        console.log(requestId);
+                        var source = new EventSource('crawler/' + requestId);
+                        if (source) {
+                            source.addEventListener('open', function (e) {
+                                console.log('connected');
+                            });
+                            source.addEventListener('message', function (e) {
+                                console.log(e.data);
+//            var message = JSON.parse(e.data);
+                                $('#result').append('<li>' + e.data + '</li>');
+                            }, false);
+                            source.addEventListener('error', function (e) {
+                                if (e.readyState == EventSource.CLOSED) {
+                                    connected = false;
+                                    connect();
+                                }
+                            }, false);
+                        } else
+                            console.log(source);
+                    });
+                });
+            });
+        </script>
+    </body>
+</html>
